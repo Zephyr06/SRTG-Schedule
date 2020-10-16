@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/entry.dir/source/RTGS-entry.c.o  -o bin/entry 

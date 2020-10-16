@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 # project definition
-project(RTG-scheduler)
+project(scheduler)
 set(VERSION "1.0.1")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -43,7 +43,7 @@ set(SOURCES
     source/RTGS-ALAP_improve.c
     source/RTGS-ALAP.c
     source/RTGS-dispatch.c
-    source/RTGS-entry.c
+#    source/RTGS-entry.c
     source/RTGS-file_handler.c
     source/RTGS-functions.c
     source/RTGS-helper_functions.c
@@ -56,7 +56,14 @@ set(SOURCES
     )
 
 # executable target and the source files
-add_executable(RTG-scheduler ${SOURCES})
+
+# add my test files
+include_directories(tests)
+file(GLOB TESTS "tests/*.cpp")
+
+add_library(scheduler ${SOURCES})
+
+
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
@@ -65,8 +72,17 @@ else()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse4.2 -std=c++11")
 endif()
 
-install(TARGETS RTG-scheduler DESTINATION bin)
+# add_library(scheduler SHARED ${SOURCES})
+# install(TARGETS scheduler DESTINATION bin)
 
 # Bring in default test data
 FILE(GLOB RTG_TEST_DATA "testData/*.txt")
 file(COPY ${RTG_TEST_DATA} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testData/)
+
+find_package(CppUnitLite REQUIRED)
+add_executable(schedulerTest tests/testIO.cpp)
+target_link_libraries(schedulerTest CppUnitLite scheduler)
+
+add_executable(testMain tests/testMain.c)
+target_link_libraries(testMain scheduler)
+

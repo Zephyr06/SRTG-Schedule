@@ -5,6 +5,7 @@
 
 #include"RTGS.h"
 
+
 /***********************************************************************************************************
 MODE 1 FUNCTIONS
 **********************************************************************************************************/
@@ -78,8 +79,8 @@ RTGS Mode 1 - - Simple GPU Schedulers
 ***********************************************************************************************************/
 int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 {
-	jobAttributes jobAttributesList[MAX_JOBS] = {{0}};
-	jobReleaseInfo releaseTimeInfo[MAX_JOBS] = {{0}};
+	jobAttributes jobAttributesList[MAX_JOBS] = {{0}}; // array, processor_req, execution_time, deadline, latest_schedulable_time
+	jobReleaseInfo releaseTimeInfo[MAX_JOBS] = {{0}}; // array , release_time and num_job_released
 	scheduledResourceNode *processorsAllocatedList = NULL;
 
 	// global variables initialized

@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef __profiler_h__
 #define __profiler_h__
 

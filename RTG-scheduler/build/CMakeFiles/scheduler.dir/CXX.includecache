@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/RTGS_Global.h
+stdio.h
+-
+
+../include/profiler.h
+inttypes.h
+-
+profilerEvents.h
+../include/profilerEvents.h
+
+../include/profilerEvents.h
+
+/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/profiler.cpp
+profiler.h
+/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/profiler.h
+iostream
+-
+windows.h
+-
+x86intrin.h
+-
+sys/types.h
+-
+sys/stat.h
+-
+unistd.h
+-
+cstring
+-
+chrono
+-
+stdio.h
+-
+RTGS_Global.h
+/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/RTGS_Global.h
+profilerEvents.h
+/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/profilerEvents.h
+
