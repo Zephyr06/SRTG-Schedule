@@ -120,11 +120,11 @@ class SimpleNet(nn.Module):
         for rel in layer_release:
             job.release_time = min(job.release_time, rel.release_time)
             job.processor_req = max (job.processor_req, rel.processor_req)
-            job.execution_time += rel.execution_time * rel.processor_req # multiple processor???
+            job.execution_time += rel.execution_time # multiple processor???
             job.deadline = max (job.deadline, rel.deadline)
             job.latest_schedulable_time = max (job.latest_schedulable_time, rel.latest_schedulable_time)
             
-        job.execution_time = job.execution_time/job.processor_req
+        job.execution_time = job.execution_time
         return job
 
     def forward(self, x: torch.tensor) -> torch.tensor:
