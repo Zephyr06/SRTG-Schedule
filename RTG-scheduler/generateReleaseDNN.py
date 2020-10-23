@@ -127,13 +127,19 @@ class SimpleNet(nn.Module):
         job.execution_time = job.execution_time
         return job
 
+    def manageLayers1(self, pict_size = 256, scale = 1e-4):
+        layers = generate_layers_release(pict_size, scale)
+        return layers
+
+
     def forward(self, x: torch.tensor) -> torch.tensor:
 
         model_output = self.fc_layers((self.cnn_layers(x)).reshape(x.shape[0], -1))
 
         return model_output
 
+
 if __name__ == '__main__':
     net= SimpleNet()
     net.generate_layers_release(256)
-    write_release([net.generate_single_task_release()])
+    #write_release([net.generate_single_task_release()])

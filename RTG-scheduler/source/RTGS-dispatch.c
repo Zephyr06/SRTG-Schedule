@@ -18,7 +18,7 @@ int Retrieve_processors
 
 	if (localProcessorsAllocatedList != NULL)
 	{
-		if (localProcessorsAllocatedList->data == present_time)
+		if (localProcessorsAllocatedList->data == present_time) // this data means the time to free these processors
 		{
 			processors_available = processors_available + localProcessorsAllocatedList->processors_allocated;
 			if (GLOBAL_RTGS_DEBUG_MSG > 2) {

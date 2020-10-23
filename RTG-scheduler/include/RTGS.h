@@ -107,6 +107,10 @@ struct jobInformation {
 	int rescheduled_execution;      // job rescheduled for gpu exe
 	int schedule_hardware;          // job scheduled on 0: ERROR, 1: GPU, 2: CPU
 	float schedule_overhead;        // scheduler Overhead
+	// added by Sen
+	int priority;                   // job priority specified by user, 0 is the highest one
+	int type;                       // job type which models job dependency; jobs of the same type must finish FCFS
+	int job_id;                     // job identification number, unique for job in each simulation
 };
 //! \brief jobInformation structure
 typedef struct jobInformation jobAttributes;

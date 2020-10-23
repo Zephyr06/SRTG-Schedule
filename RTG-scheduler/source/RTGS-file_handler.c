@@ -22,7 +22,7 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 	}
 
 	char kernelLine[LINE_SIZE_MAX];
-	char jobAttributes[5][10];
+	char jobAttributes[6][10];
 	int kernel_ID = -1, num_kernels = 0;
 
 	while (fgets(kernelLine, LINE_SIZE_MAX, fp) != NULL)
@@ -44,26 +44,30 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 				j++;
 			}
 
-			if (ctr > 5) {
+			if (ctr > 6) {
 				printf("ERROR:get_job_information - Job Info File ERROR -- RTGS_ERROR_INVALID_PARAMETERS-- count: %d\n", ctr);
 				return RTGS_ERROR_INVALID_PARAMETERS;
 			}
 		}
 
-		if (ctr != 5) {
-			printf("ERROR::get_job_information - Job Info File ERROR -- RTGS_ERROR_NOT_SUFFICIENT -- count: %d\n", ctr);
-			return RTGS_ERROR_NOT_SUFFICIENT;
-		}
+		// if (ctr != 5) {
+		// 	printf("ERROR::get_job_information - Job Info File ERROR -- RTGS_ERROR_NOT_SUFFICIENT -- count: %d\n", ctr);
+		// 	return RTGS_ERROR_NOT_SUFFICIENT;
+		// }
 
 		kernel_ID = atoi(jobAttributes[0]);
 		if (kernel_ID < 0) {
 			printf("ERROR::get_job_information - Job ID needs to be in the range 0 - N\n");
 			return RTGS_ERROR_INVALID_PARAMETERS;
 		}
+		kernelInfoList[kernel_ID].job_id = atoi(jobAttributes[0]);
 		kernelInfoList[kernel_ID].processor_req = atoi(jobAttributes[1]);
 		kernelInfoList[kernel_ID].execution_time = atoi(jobAttributes[2]);
 		kernelInfoList[kernel_ID].deadline = atoi(jobAttributes[3]);
 		kernelInfoList[kernel_ID].latest_schedulable_time = atoi(jobAttributes[4]);
+		kernelInfoList[kernel_ID].type = atoi(jobAttributes[5]);
+
+		kernelInfoList[kernel_ID].release_time = kernelInfoList[kernel_ID].job_id;
 		num_kernels++;
 	}
 

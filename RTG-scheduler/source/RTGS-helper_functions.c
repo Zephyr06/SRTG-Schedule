@@ -688,8 +688,8 @@ genericBackupNode *clean_list(genericBackupNode *head)
 scheduledResourceNode *ascending_insert
 (
 	scheduledResourceNode *head,
-	int ascendingVariable,
-	int processor_release_time,
+	int ascendingVariable,// processor release time, or job finish time
+	int processor_release_time, // processor release time, or job finish time
 	int processorReleased,
 	int jobNumber,
 	int schedule_method

@@ -6,6 +6,11 @@
 #include"RTGS.h"
 
 
+struct streamNode {
+	int job_id;
+	struct streamNode *next;
+};
+
 /***********************************************************************************************************
 MODE 1 FUNCTIONS
 **********************************************************************************************************/
@@ -89,6 +94,7 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 
 	int processorsAvailable = GLOBAL_MAX_PROCESSORS;
 	int jobNumber = 0;
+	
 
 	int kernelMax = get_job_information(jobAttributesList, jobsListFileName);
 	if (kernelMax <= RTGS_FAILURE) { printf("ERROR - get_job_information failed with %d code\n", kernelMax); return  RTGS_FAILURE; }
@@ -99,13 +105,63 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 		printf("\n**************** The GPU Scheduler will Schedule %d Jobs ****************\n", kernelMax);
 	}
 
+	int TotalJob = sizeof(jobAttributesList)/sizeof(jobAttributes);
+	int jobCursor=0;
 	int numReleases = 0;
+	struct streamNode* streamHead=NULL;
+	struct streamNode* streamCursor=NULL;
+
 	for (int present_time = 0; present_time < MAX_RUN_TIME; present_time++)
 	{
 		// Freeing-up processors
 		processorsAvailable = Retrieve_processors(present_time, processorsAvailable, &processorsAllocatedList);
 		if (processorsAvailable < 0) { printf("Retrieve_processors ERROR- GCUs Available:%d\n", processorsAvailable); return RTGS_ERROR_NOT_IMPLEMENTED; }
 
+// **********************************My code begins***************************
+		if(jobCursor > TotalJob)
+			{
+				// std::cout<<"All the jobs have been scheduled"<<std::endl;
+				break;
+			}
+		if(jobAttributesList[jobCursor].release_time >= present_time )
+		{
+			// add this job to stream list
+			struct streamNode *link = (struct streamNode*) malloc(sizeof(struct streamNode));
+			link->job_id=jobAttributesList[jobCursor].job_id;
+			link->next=NULL;
+			if(!streamHead)
+				{
+					streamHead=link;
+					streamCursor=streamHead;
+				}
+			else
+				{
+					streamCursor->next=link;
+					streamCursor=streamCursor->next;					
+				}
+		}
+		else
+		{
+			// nothing new to process
+			;
+		}
+
+		// retrieve the job with highest priority from the stream list, and send it to Mode_1_book_keeper
+		{
+			struct streamNode* head=streamHead;
+			int maxP=-1;
+			int highest_job=-1;
+			while(head)
+			{
+				if(jobAttributesList[jobAttributesList[head->job_id]].priority > maxP)
+				{
+					maxP=jobAttributesList[jobAttributesList[head->job_id]].priority;
+					highest_job = head->job_id;
+				}
+			}
+		}
+
+// **********************************My code ends***************************
 		if (releaseTimeInfo[numReleases].release_time == present_time) {
 
 			if (releaseTimeInfo[numReleases].num_job_released == 1)
@@ -126,50 +182,8 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 				jobAttributesList[jobNumber].schedule_overhead = SchedulerOverhead;
 				jobNumber++;
 			}
-			else if (releaseTimeInfo[numReleases].num_job_released == 2)
-			{
-				int k1 = jobNumber; jobNumber++;
-				int k2 = jobNumber; jobNumber++;
-				jobAttributesList[k1].release_time = present_time;
-				jobAttributesList[k2].release_time = present_time;
+			// currently, we don't consider other release situations
 
-				if (GLOBAL_RTGS_DEBUG_MSG > 1) {
-					printf("\nRTGS Mode 1 -- Total GCUs Available at time %d = %d\n", present_time, processorsAvailable);
-					printf("RTGS Mode 1 -- Job-%d Released\n", k1);
-					printf("RTGS Mode 1 -- Job-%d Released\n", k2);
-				}
-				if (jobAttributesList[k1].deadline <= jobAttributesList[k2].deadline)
-				{
-					// handling the released jobAttributesList by the book-keeper
-					int64_t start_t = RTGS_GetClockCounter();
-					processorsAvailable = Mode_1_book_keeper(jobAttributesList, k1, processorsAvailable, present_time, &processorsAllocatedList);
-					int64_t end_t = RTGS_GetClockCounter();
-					int64_t freq = RTGS_GetClockFrequency();
-					float factor = 1000.0f / (float)freq; // to convert clock counter to ms
-					float SchedulerOverhead = (float)((end_t - start_t) * factor);
-					jobAttributesList[k1].schedule_overhead = SchedulerOverhead;
-					start_t = RTGS_GetClockCounter();
-					processorsAvailable = Mode_1_book_keeper(jobAttributesList, k2, processorsAvailable, present_time, &processorsAllocatedList);
-					end_t = RTGS_GetClockCounter();
-					SchedulerOverhead = (float)((end_t - start_t) * factor);
-					jobAttributesList[k2].schedule_overhead = SchedulerOverhead;
-				}
-				else
-				{
-					// handling the released jobAttributesList by the book-keeper
-					int64_t start_t = RTGS_GetClockCounter();
-					processorsAvailable = Mode_1_book_keeper(jobAttributesList, k2, processorsAvailable, present_time, &processorsAllocatedList);
-					int64_t end_t = RTGS_GetClockCounter();
-					int64_t freq = RTGS_GetClockFrequency();
-					float factor = 1000.0f / (float)freq; // to convert clock counter to ms
-					float SchedulerOverhead = (float)((end_t - start_t) * factor);
-					jobAttributesList[k2].schedule_overhead = SchedulerOverhead;
-					start_t = RTGS_GetClockCounter();
-					processorsAvailable = Mode_1_book_keeper(jobAttributesList, k1, processorsAvailable, present_time, &processorsAllocatedList);
-					end_t = RTGS_GetClockCounter();
-					SchedulerOverhead = (float)((end_t - start_t) * factor);
-					jobAttributesList[k1].schedule_overhead = SchedulerOverhead;
-				}
 			}
 			else { printf("RTGS Mode 1 ERROR --  RTGS_ERROR_NOT_IMPLEMENTED\n"); return RTGS_ERROR_NOT_IMPLEMENTED; }
 
