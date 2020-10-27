@@ -1,2 +1,5 @@
-./RTG-scheduler --j testData/set1-jobs.txt --r testData/set1-jobReleaseTimes.txt --m 1
+cd build
+
+./bin/testMain --j bin/testData/set1-jobs.txt --r bin/testData/set1-jobReleaseTimes.txt --m 1
+
 

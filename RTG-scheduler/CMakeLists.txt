@@ -62,7 +62,7 @@ include_directories(tests)
 file(GLOB TESTS "tests/*.cpp")
 
 add_library(scheduler ${SOURCES})
-
+# add_executable(scheduler ${SOURCES})
 
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")

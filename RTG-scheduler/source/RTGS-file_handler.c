@@ -18,11 +18,11 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 		return RTGS_FAILURE;
 	}
 	if (GLOBAL_RTGS_DEBUG_MSG > 1) {
-		printf("Jobs Info File -- %s\n", jobsListFileName);
+		printf("Jobs Info File 1-- %s\n", jobsListFileName);
 	}
 
 	char kernelLine[LINE_SIZE_MAX];
-	char jobAttributes[6][10];
+	char jobAttributes[7][10];
 	int kernel_ID = -1, num_kernels = 0;
 
 	while (fgets(kernelLine, LINE_SIZE_MAX, fp) != NULL)
@@ -44,8 +44,9 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 				j++;
 			}
 
-			if (ctr > 6) {
-				printf("ERROR:get_job_information - Job Info File ERROR -- RTGS_ERROR_INVALID_PARAMETERS-- count: %d\n", ctr);
+			if (ctr > 7) {
+				printf("ERROR:get_job_information - Job Info 1 File ERROR -- RTGS_ERROR_INVALID_PARAMETERS-- count: %d\n", ctr);
+				printf("****aaaaaaaaaaa\n\n\n");
 				return RTGS_ERROR_INVALID_PARAMETERS;
 			}
 		}
@@ -66,6 +67,7 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 		kernelInfoList[kernel_ID].deadline = atoi(jobAttributes[3]);
 		kernelInfoList[kernel_ID].latest_schedulable_time = atoi(jobAttributes[4]);
 		kernelInfoList[kernel_ID].type = atoi(jobAttributes[5]);
+		kernelInfoList[kernel_ID].priority = atoi(jobAttributes[6]);
 
 		kernelInfoList[kernel_ID].release_time = kernelInfoList[kernel_ID].job_id;
 		num_kernels++;
