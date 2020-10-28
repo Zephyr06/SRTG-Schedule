@@ -65,11 +65,11 @@ static int Mode_1_book_keeper
 	}
 	else
 	{
-		jobAttributesList[jobNumber].schedule_hardware = 2;
-		jobAttributesList[jobNumber].rescheduled_execution = -1;
-		jobAttributesList[jobNumber].completion_time = -1;
-		jobAttributesList[jobNumber].scheduled_execution = -1;
-		GLOBAL_CPU_JOBS++;
+		// jobAttributesList[jobNumber].schedule_hardware = 2;
+		// jobAttributesList[jobNumber].rescheduled_execution = -1;
+		// jobAttributesList[jobNumber].completion_time = -1;
+		// jobAttributesList[jobNumber].scheduled_execution = -1;
+		// GLOBAL_CPU_JOBS++;
 		if (GLOBAL_RTGS_DEBUG_MSG > 1) {
 			printf("Mode-1 Book Keeper:: No GCUs Available for Job-%d, Job REJECTED\n", jobNumber);
 			printf("Mode-1 Book Keeper:: Jobs REJECTED count --> %d\n", GLOBAL_CPU_JOBS);
@@ -149,15 +149,10 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 		}
 		struct streamNode* head=streamHead;
 		struct streamNode* prev=NULL;
-		int maxP=INT8_MIN;
+		int minP=INT8_MAX;
 		int highest_job=-1;
 		while(head)
 		{
-			if(jobAttributesList[head->job_id  ].priority > maxP)
-			{
-				maxP=jobAttributesList[head->job_id].priority;
-				highest_job = head->job_id;
-			}
 			// if already scheduled, remove it from the linked list
 			if(jobAttributesList[head->job_id  ].completion_time!=0)
 			{
@@ -173,6 +168,12 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 				free(t);
 				// t=NULL;
 				continue;
+			}
+			//find the job with highest priority
+			if(jobAttributesList[head->job_id  ].priority < minP)
+			{
+				minP=jobAttributesList[head->job_id].priority;
+				highest_job = head->job_id;
 			}
 			prev=head;
 			head=head->next;
