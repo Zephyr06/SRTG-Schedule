@@ -1,5 +1,0 @@
-cd build
-
-./bin/testMain --j bin/testData/set1-jobs.txt --r bin/testData/set1-jobReleaseTimes.txt --m 1
-
-

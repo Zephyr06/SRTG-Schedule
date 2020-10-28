@@ -635,32 +635,32 @@ source/profiler.cpp.s:
 	$(MAKE) -f CMakeFiles/scheduler.dir/build.make CMakeFiles/scheduler.dir/source/profiler.cpp.s
 .PHONY : source/profiler.cpp.s
 
-tests/testIO.o: tests/testIO.cpp.o
+tests/testIO.o: tests/testIO.c.o
 
 .PHONY : tests/testIO.o
 
 # target to build an object file
-tests/testIO.cpp.o:
-	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o
-.PHONY : tests/testIO.cpp.o
+tests/testIO.c.o:
+	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.c.o
+.PHONY : tests/testIO.c.o
 
-tests/testIO.i: tests/testIO.cpp.i
+tests/testIO.i: tests/testIO.c.i
 
 .PHONY : tests/testIO.i
 
 # target to preprocess a source file
-tests/testIO.cpp.i:
-	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.cpp.i
-.PHONY : tests/testIO.cpp.i
+tests/testIO.c.i:
+	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.c.i
+.PHONY : tests/testIO.c.i
 
-tests/testIO.s: tests/testIO.cpp.s
+tests/testIO.s: tests/testIO.c.s
 
 .PHONY : tests/testIO.s
 
 # target to generate assembly for a file
-tests/testIO.cpp.s:
-	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.cpp.s
-.PHONY : tests/testIO.cpp.s
+tests/testIO.c.s:
+	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.c.s
+.PHONY : tests/testIO.c.s
 
 tests/testMain.o: tests/testMain.c.o
 

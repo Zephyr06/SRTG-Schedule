@@ -1,1 +1,0 @@
-/usr/bin/c++   -msse4.2 -std=c++11  -rdynamic CMakeFiles/tests.dir/testIO.cpp.o  -o ../bin/tests 

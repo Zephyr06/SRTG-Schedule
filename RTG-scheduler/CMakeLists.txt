@@ -79,9 +79,9 @@ endif()
 FILE(GLOB RTG_TEST_DATA "testData/*.txt")
 file(COPY ${RTG_TEST_DATA} DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/testData/)
 
-find_package(CppUnitLite REQUIRED)
-add_executable(schedulerTest tests/testIO.cpp)
-target_link_libraries(schedulerTest CppUnitLite scheduler)
+
+add_executable(schedulerTest tests/testIO.c)
+target_link_libraries(schedulerTest scheduler)
 
 add_executable(testMain tests/testMain.c)
 target_link_libraries(testMain scheduler)

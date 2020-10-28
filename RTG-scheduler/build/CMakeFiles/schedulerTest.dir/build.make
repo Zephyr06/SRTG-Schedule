@@ -57,38 +57,38 @@ include CMakeFiles/schedulerTest.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/schedulerTest.dir/flags.make
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o: CMakeFiles/schedulerTest.dir/flags.make
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o: ../tests/testIO.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o -c /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.cpp
+CMakeFiles/schedulerTest.dir/tests/testIO.c.o: CMakeFiles/schedulerTest.dir/flags.make
+CMakeFiles/schedulerTest.dir/tests/testIO.c.o: ../tests/testIO.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/schedulerTest.dir/tests/testIO.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/schedulerTest.dir/tests/testIO.c.o   -c /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.c
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/schedulerTest.dir/tests/testIO.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.cpp > CMakeFiles/schedulerTest.dir/tests/testIO.cpp.i
+CMakeFiles/schedulerTest.dir/tests/testIO.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/schedulerTest.dir/tests/testIO.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.c > CMakeFiles/schedulerTest.dir/tests/testIO.c.i
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/schedulerTest.dir/tests/testIO.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.cpp -o CMakeFiles/schedulerTest.dir/tests/testIO.cpp.s
+CMakeFiles/schedulerTest.dir/tests/testIO.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/schedulerTest.dir/tests/testIO.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.c -o CMakeFiles/schedulerTest.dir/tests/testIO.c.s
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.requires:
+CMakeFiles/schedulerTest.dir/tests/testIO.c.o.requires:
 
-.PHONY : CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.requires
+.PHONY : CMakeFiles/schedulerTest.dir/tests/testIO.c.o.requires
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.provides: CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.requires
-	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.provides.build
-.PHONY : CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.provides
+CMakeFiles/schedulerTest.dir/tests/testIO.c.o.provides: CMakeFiles/schedulerTest.dir/tests/testIO.c.o.requires
+	$(MAKE) -f CMakeFiles/schedulerTest.dir/build.make CMakeFiles/schedulerTest.dir/tests/testIO.c.o.provides.build
+.PHONY : CMakeFiles/schedulerTest.dir/tests/testIO.c.o.provides
 
-CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.provides.build: CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o
+CMakeFiles/schedulerTest.dir/tests/testIO.c.o.provides.build: CMakeFiles/schedulerTest.dir/tests/testIO.c.o
 
 
 # Object files for target schedulerTest
 schedulerTest_OBJECTS = \
-"CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o"
+"CMakeFiles/schedulerTest.dir/tests/testIO.c.o"
 
 # External object files for target schedulerTest
 schedulerTest_EXTERNAL_OBJECTS =
 
-bin/schedulerTest: CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o
+bin/schedulerTest: CMakeFiles/schedulerTest.dir/tests/testIO.c.o
 bin/schedulerTest: CMakeFiles/schedulerTest.dir/build.make
 bin/schedulerTest: lib/libscheduler.a
 bin/schedulerTest: CMakeFiles/schedulerTest.dir/link.txt
@@ -100,7 +100,7 @@ CMakeFiles/schedulerTest.dir/build: bin/schedulerTest
 
 .PHONY : CMakeFiles/schedulerTest.dir/build
 
-CMakeFiles/schedulerTest.dir/requires: CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o.requires
+CMakeFiles/schedulerTest.dir/requires: CMakeFiles/schedulerTest.dir/tests/testIO.c.o.requires
 
 .PHONY : CMakeFiles/schedulerTest.dir/requires
 

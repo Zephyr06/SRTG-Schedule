@@ -1,15 +1,15 @@
 # The set of languages for which implicit dependencies are needed:
 set(CMAKE_DEPENDS_LANGUAGES
-  "CXX"
+  "C"
   )
 # The set of files for implicit dependencies of each language:
-set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.cpp" "/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/build/CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o"
+set(CMAKE_DEPENDS_CHECK_C
+  "/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.c" "/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/build/CMakeFiles/schedulerTest.dir/tests/testIO.c.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_C_COMPILER_ID "GNU")
 
 # The include file search paths:
-set(CMAKE_CXX_TARGET_INCLUDE_PATH
+set(CMAKE_C_TARGET_INCLUDE_PATH
   "../include"
   "../tests"
   )

@@ -46,19 +46,9 @@ stdio.h
 
 ../include/profilerEvents.h
 
-/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/RTGS-file_handler.c
-RTGS.h
-/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/RTGS.h
-
 /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/testIO.cpp
-CppUnitLite/TestHarness.h
--
 RTGS.h
 /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/RTGS.h
 RTGS_Global.h
 /home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/RTGS_Global.h
-string.h
-/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/tests/string.h
-../source/RTGS-file_handler.c
-/home/zephyr/Programming/CS6235/SRTG-Schedule/RTG-scheduler/source/RTGS-file_handler.c
 

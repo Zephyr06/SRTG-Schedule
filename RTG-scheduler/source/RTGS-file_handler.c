@@ -22,7 +22,7 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 	}
 
 	char kernelLine[LINE_SIZE_MAX];
-	char jobAttributes[7][10];
+	char jobAttributes[8][10];
 	int kernel_ID = -1, num_kernels = 0;
 
 	while (fgets(kernelLine, LINE_SIZE_MAX, fp) != NULL)
@@ -44,7 +44,7 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 				j++;
 			}
 
-			if (ctr > 7) {
+			if (ctr > 6) {
 				printf("ERROR:get_job_information - Job Info 1 File ERROR -- RTGS_ERROR_INVALID_PARAMETERS-- count: %d\n", ctr);
 				printf("****aaaaaaaaaaa\n\n\n");
 				return RTGS_ERROR_INVALID_PARAMETERS;

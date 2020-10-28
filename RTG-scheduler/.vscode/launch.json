@@ -8,7 +8,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/bin/testMain",
+            "program": "${workspaceFolder}/build/bin/schedulerTest",
             "args": [ "--j", "${workspaceFolder}/build/bin/testData/set1-jobs.txt", "--r", "${workspaceFolder}/build/bin/testData/set1-jobReleaseTimes.txt", "--m", "1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

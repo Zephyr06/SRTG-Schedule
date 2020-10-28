@@ -1,1 +1,1 @@
-/usr/bin/c++   -msse4.2 -std=c++11 -g  -rdynamic CMakeFiles/schedulerTest.dir/tests/testIO.cpp.o  -o bin/schedulerTest -lCppUnitLite lib/libscheduler.a 
+/usr/bin/c++   -msse4.2 -std=c++11 -g  -rdynamic CMakeFiles/schedulerTest.dir/tests/testIO.c.o  -o bin/schedulerTest lib/libscheduler.a 
