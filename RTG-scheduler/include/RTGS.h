@@ -111,6 +111,7 @@ struct jobInformation {
 	int priority;                   // job priority specified by user, 0 is the highest one
 	int type;                       // job type which models job dependency; jobs of the same type must finish FCFS
 	int job_id;                     // job identification number, unique for job in each simulation
+	int dependency;                 // job may require another job to finish before its execution, this is the depend job's id
 };
 //! \brief jobInformation structure
 typedef struct jobInformation jobAttributes;

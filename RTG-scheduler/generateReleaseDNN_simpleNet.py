@@ -73,20 +73,20 @@ class SimpleNet(nn.Module):
 
             cost = out_channels *new_curr_pict_size*new_curr_pict_size * (kernel_size*kernel_size*in_channels)
 
-            release_file.append(Job_attributes(i*3+0, processor_req, cost * scale, 100000, 100000 ))
+            release_file.append(Job_attributes(i+0, processor_req, cost * scale, 100000, 100000 ))
 
             pict_size = new_curr_pict_size
 
             #  max pool layer
-            kernel_size=self.cnn_layers[i*3+1].kernel_size
-            stride = self.cnn_layers[i*3+1].stride
-            cost = (pict_size-(kernel_size-1) )//stride * kernel_size* kernel_size
-            pict_size = (pict_size-(kernel_size-1) )//stride
-            release_file.append(Job_attributes(i*3+1, processor_req, cost * scale, 100000, 100000 ))
+            # kernel_size=self.cnn_layers[i*3+1].kernel_size
+            # stride = self.cnn_layers[i*3+1].stride
+            # cost = (pict_size-(kernel_size-1) )//stride * kernel_size* kernel_size
+            # pict_size = (pict_size-(kernel_size-1) )//stride
+            # release_file.append(Job_attributes(i*3+1, processor_req, cost * scale, 100000, 100000 ))
 
             #  relu layer
-            cost = pict_size*pict_size*2
-            release_file.append(Job_attributes(i*3+2, processor_req, cost * scale, 100000, 100000 ))
+            # cost = pict_size*pict_size*2
+            # release_file.append(Job_attributes(i*3+2, processor_req, cost * scale, 100000, 100000 ))
         
         curr_release_time = len(self.cnn_layers)
         # fully connected layer

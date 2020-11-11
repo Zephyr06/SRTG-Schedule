@@ -11,6 +11,24 @@ struct streamNode {
 	struct streamNode *next;
 };
 
+// check if dependency task is finished
+bool dependPass (jobAttributes jobAttributesList[], int jobCursor, int presentTime)
+{
+	int dependTask = jobAttributesList[jobCursor].dependency;
+	if (dependTask == -1)
+		return true;
+	else
+	{
+		if (jobAttributesList[dependTask].completion_time <= presentTime)
+			return true;
+		else
+		{
+			return false;
+		}	
+	}
+	return true;
+}
+
 /***********************************************************************************************************
 MODE 1 FUNCTIONS
 **********************************************************************************************************/
@@ -154,7 +172,7 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 		while(head)
 		{
 			// if already scheduled, remove it from the linked list
-			if(jobAttributesList[head->job_id  ].completion_time!=0)
+			if(jobAttributesList[head->job_id  ].completion_time!=INT16_MAX)
 			{
 				struct streamNode* t=head;
 				if(prev)
@@ -170,7 +188,7 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 				continue;
 			}
 			//find the job with highest priority
-			if(jobAttributesList[head->job_id  ].priority < minP)
+			if(dependPass(jobAttributesList, head->job_id, present_time)  && jobAttributesList[head->job_id  ].priority < minP)
 			{
 				minP=jobAttributesList[head->job_id].priority;
 				highest_job = head->job_id;
@@ -190,6 +208,8 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 			printf("\nRTGS Mode 1 -- Total GCUs Available at time %d = %d\n", present_time, processorsAvailable);
 			printf("RTGS Mode 1 -- Job-%d Released\n", jobNumber);
 		}
+		if(highest_job == -1)
+			continue;
 		jobNumber = highest_job;
 		jobAttributesList[jobNumber].release_time = present_time;
 		// handling the released jobAttributesList by the book-keeper

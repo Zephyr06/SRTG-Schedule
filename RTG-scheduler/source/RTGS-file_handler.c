@@ -44,7 +44,7 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 				j++;
 			}
 
-			if (ctr > 6) {
+			if (ctr > 7) {
 				printf("ERROR:get_job_information - Job Info 1 File ERROR -- RTGS_ERROR_INVALID_PARAMETERS-- count: %d\n", ctr);
 				printf("****aaaaaaaaaaa\n\n\n");
 				return RTGS_ERROR_INVALID_PARAMETERS;
@@ -66,10 +66,16 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 		kernelInfoList[kernel_ID].execution_time = atoi(jobAttributes[2]);
 		kernelInfoList[kernel_ID].deadline = atoi(jobAttributes[3]);
 		kernelInfoList[kernel_ID].latest_schedulable_time = atoi(jobAttributes[4]);
-		kernelInfoList[kernel_ID].type = atoi(jobAttributes[5]);
-		kernelInfoList[kernel_ID].priority = atoi(jobAttributes[6]);
+		kernelInfoList[kernel_ID].dependency = atoi(jobAttributes[5]); // -1 means no dependency
+		//  6 and 7 are not used for now
+		// kernelInfoList[kernel_ID].priority = atoi(jobAttributes[6]);
+		// kernelInfoList[kernel_ID].type = atoi(jobAttributes[7]); 
+		
+		// printf("%d\n", kernelInfoList[kernel_ID].job_id);
+
 
 		kernelInfoList[kernel_ID].release_time = kernelInfoList[kernel_ID].job_id;
+		kernelInfoList[kernel_ID].completion_time = INT16_MAX;
 		num_kernels++;
 	}
 
