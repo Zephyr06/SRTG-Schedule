@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/bin/schedulerTest",
-            "args": [ "--j", "${workspaceFolder}/build/bin/testData/myJob1.txt", "--r", "${workspaceFolder}/build/bin/testData/myJob1_release.txt", "--m", "1"],
+            "args": [ "--j", "${workspaceFolder}/myJob1.txt", "--r", "${workspaceFolder}/myJob1_release.txt", "--m", "1"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

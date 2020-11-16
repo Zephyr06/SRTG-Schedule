@@ -142,8 +142,8 @@ int RTGS_mode_1(char *jobsListFileName, char *releaseTimeFilename)
 			// add this job to stream list
 			struct streamNode *link = (struct streamNode*) malloc(sizeof(struct streamNode));
 			link->job_id=jobAttributesList[jobCursor].job_id;
-			if(link->job_id>20)
-				link->job_id--;
+			// if(link->job_id>20)
+			// 	link->job_id--;
 
 			link->next=NULL;
 			if(!streamHead)

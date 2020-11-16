@@ -67,8 +67,9 @@ int get_job_information(jobAttributes *kernelInfoList, const char *jobsListFileN
 		kernelInfoList[kernel_ID].deadline = atoi(jobAttributes[3]);
 		kernelInfoList[kernel_ID].latest_schedulable_time = atoi(jobAttributes[4]);
 		kernelInfoList[kernel_ID].dependency = atoi(jobAttributes[5]); // -1 means no dependency
-		//  6 and 7 are not used for now
-		// kernelInfoList[kernel_ID].priority = atoi(jobAttributes[6]);
+		kernelInfoList[kernel_ID].priority = atoi(jobAttributes[6]);
+		//  7 are not used for now
+		
 		// kernelInfoList[kernel_ID].type = atoi(jobAttributes[7]); 
 		
 		// printf("%d\n", kernelInfoList[kernel_ID].job_id);

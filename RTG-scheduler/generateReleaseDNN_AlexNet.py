@@ -4,7 +4,7 @@ from torchvision.models import alexnet
 import copy
 
 max_processor = 16
-cost_scale = 1e-9
+cost_scale = 5e-10
 
 def write_jobs(release_file, path = 'myJob1.txt'):
     file=open(path,'w+')
@@ -13,7 +13,8 @@ def write_jobs(release_file, path = 'myJob1.txt'):
     for rel in release_file:
         file.write(str(int(rel.job_id))+','+str(int(rel.processor_req))+','+\
             "{:.0f}".format(rel.execution_time)+','+str(int(rel.deadline))+','+\
-                   str(int(rel.latest_schedulable_time))+','+ str(int(rel.dependency))+ '\n')
+                   str(int(rel.latest_schedulable_time))+','+ str(int(rel.dependency))+ \
+                   ','+ str(int(rel.priority))+'\n')
     file.close()
 
 def write_release(release_file, path = 'myJob1_release.txt'):
@@ -31,6 +32,7 @@ class Job_attributes:
     deadline = 0
     latest_schedulable_time = 0
     dependency = -1
+    priority = 0
 
     def __init__(self, a,b,c,d, e):
         self.release_time=a
@@ -40,6 +42,7 @@ class Job_attributes:
         self.latest_schedulable_time=e
         self.job_id = 0
         self.dependency = -1
+        self.priority = 0
 
 def format(release_file):
     '''
@@ -108,37 +111,6 @@ class MyAlexNet(nn.Module):
         alexnet_model = alexnet(pretrained=False)
 
         self.cnn_layers = alexnet_model.features
-        # fc_layers_list = list(alexnet_model.classifier.children())[:-1]
-        # in_features = fc_layers_list[-2].out_features
-        # fc_layers_list.append(nn.Linear(in_features=in_features, out_features=15))
-        #
-        # self.fc_layers = nn.Sequential(*fc_layers_list)
-
-        # freezing the layers by setting requires_grad=False
-        # example: self.cnn_layers[idx].weight.requires_grad = False
-
-        # take care to turn off gradients for both weight and bias
-        # self.cnn_layers[0].weight.requires_grad = False
-        # self.cnn_layers[0].bias.requires_grad = False
-        #
-        # self.cnn_layers[3].weight.requires_grad = False
-        # self.cnn_layers[3].bias.requires_grad = False
-        #
-        # self.cnn_layers[6].weight.requires_grad = False
-        # self.cnn_layers[6].bias.requires_grad = False
-        #
-        # self.cnn_layers[8].weight.requires_grad = False
-        # self.cnn_layers[8].bias.requires_grad = False
-        #
-        # self.cnn_layers[10].weight.requires_grad = False
-        # self.cnn_layers[10].bias.requires_grad = False
-        #
-        # self.fc_layers[1].weight.requires_grad = False
-        # self.fc_layers[1].bias.requires_grad = False
-        #
-        # self.fc_layers[4].weight.requires_grad = False
-        # self.fc_layers[4].bias.requires_grad = False
-        #
         self.loss_criterion = nn.CrossEntropyLoss(reduction='sum')
         #
         # a=1
@@ -153,6 +125,7 @@ class MyAlexNet(nn.Module):
         # convolution layer
         cnn_seq=[0,3,6,8,10]
         index = 0
+        priority_index = 0
         for i in cnn_seq:
             processor_req=max_processor/pow(2,index)
             index+=1
@@ -167,40 +140,47 @@ class MyAlexNet(nn.Module):
 
             cost = out_channels *new_curr_pict_size*new_curr_pict_size * (kernel_size*kernel_size*in_channels)
 
-            release_file.append(Job_attributes(i+0, processor_req, cost * cost_scale, 100000, 100000 ))
+            job_temp = Job_attributes(i+0, processor_req, cost * cost_scale, 100000, 100000 )
+            # generate equal priority sequence would bring second-level baseline
 
-            pict_size = new_curr_pict_size
 
-            #  max pool layer
-            # kernel_size=self.cnn_layers[i*3+1].kernel_size
-            # stride = self.cnn_layers[i*3+1].stride
-            # cost = (pict_size-(kernel_size-1) )//stride * kernel_size* kernel_size
-            # pict_size = (pict_size-(kernel_size-1) )//stride
-            # release_file.append(Job_attributes(i*3+1, processor_req, cost * cost_scale, 100000, 100000 ))
 
-            #  relu layer
-            # cost = pict_size*pict_size*2
-            # release_file.append(Job_attributes(i*3+2, processor_req, cost * cost_scale, 100000, 100000 ))
-        
-        curr_release_time = len(self.cnn_layers)
-        # fully connected layer
-        # fc_layers_index = [1,4,6]
-        # for i in fc_layers_index:
-        #     processor_req=1
-        #     #  convolution layer
-        #     in_features=self.fc_layers[i].in_features
-        #     out_features = self.fc_layers[i].out_features
-        #
-        #     new_curr_pict_size = out_features
-        #
-        #     cost = in_features*out_features
+            # experiments for smaller scheduling units
+            flag=1 # division units, could be 1, 2, 3
+            if(flag==1):
+                # job_temp.priority = 0
+                priority_index = priority_index +1
+                # job_temp.priority = 10-priority_index
+                job_temp.priority = 0
+                release_file.append(job_temp)
+            elif (flag ==2):
+                # job_temp.priority = 0
+                priority_index = priority_index +1
+                job_temp.priority = priority_index
+                job_temp2=copy.deepcopy(job_temp)
+                priority_index = priority_index +1
+                job_temp2.priority = priority_index
+                job_temp2.execution_time=job_temp2.execution_time//2
+                job_temp.execution_time = job_temp.execution_time - job_temp2.execution_time
 
-            # release_file.append(Job_attributes(curr_release_time+i+0, processor_req, cost * cost_scale, 100000, 100000 ))
+                release_file.append(job_temp)
+                release_file.append(job_temp2)
+            elif (flag ==3):
+                job_temp2=copy.deepcopy(job_temp)
+                job_temp2.execution_time=job_temp2.execution_time//3
+                job_temp3 = copy.deepcopy(job_temp2)
+                job_temp.execution_time = job_temp.execution_time - job_temp2.execution_time*2
 
-            #  relu layer
-            # cost = out_features*2
-            # release_file.append(Job_attributes(curr_release_time+i*2+1, processor_req, cost * cost_scale, 100000, 100000 ))
-        
+                priority_index = priority_index +1
+                job_temp.priority = priority_index
+                priority_index = priority_index +1
+                job_temp2.priority = priority_index
+                priority_index = priority_index +1
+                job_temp3.priority = priority_index
+                release_file.append(job_temp)
+                release_file.append(job_temp2)
+                release_file.append(job_temp3)
+
 
         release_file = format(release_file)
         release_file = repeat(release_file , 3)
