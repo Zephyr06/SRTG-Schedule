@@ -12,6 +12,14 @@ After creating DNN tasks, you should specify the generated file path to the sche
 
 ## RTG-Scheduler Usage
 
+### Dependency
+
+```
+- Python3 and pytorch
+- CMake
+- C++
+```
+
 ### Linux
 ```
 cd build/bin
